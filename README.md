@@ -255,9 +255,9 @@ Then, we use use the command `catkin_create_pkg` to create a new package called 
 
 We need to build the packages in the catkin workspace, by running the following commands:
 
-`cd ~/catkin_ws
+`cd ~/catkin_ws`
 
-catkin_make`
+`catkin_make`
 
 Now we must add the workspace to your ROS environment, this can be done by sourcing the generated setup file, execute the following command:
 
@@ -281,15 +281,15 @@ After having created a caktin environment and a ROS package, we will now create 
 
 We create then a 'scripts' folder, which will store our python code for both nodes in (publisher and subscriber), by executing the following commands:
 
-`mkdir scripts
+`mkdir scripts`
 
-cd scripts`
+`cd scripts`
 
 Then, we must download the example code talker.py to our new scripts directory (wget) and make it executable (chmod +x):
 
-`wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/talker.py
+`wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/talker.py'`
 
-chmod +x talker.py`
+`chmod +x talker.py`
 
 You can view and edit the file by executing the command bellow:
 
@@ -297,14 +297,14 @@ You can view and edit the file by executing the command bellow:
 
 Regarding the writing of the subscriber node, we must follow the following steps (similar to the previous steps). First we should download the file listerner.py into our scripts directory (we must be in the correct directory, namely the scripts one), and make the file executable:
 
-`roscd beginner_tutorials/scripts/
-wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/listener.py
-chmod +x listener.py`
+`roscd beginner_tutorials/scripts/`
+`wget https://raw.github.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/listener.py`
+`chmod +x listener.py`
 
 Finally the last step is to ensure that the auto generated python code for messages and services is created, we go to our catkin workspace and run catkin_make, i.e. execute the following commands:
 
-`cd ~/catkin_ws
-catkin_make`
+`cd ~/catkin_ws`
+`catkin_make`
 
 #### Running the simple Publisher
 
