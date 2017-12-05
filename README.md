@@ -32,6 +32,14 @@ The **shell**: a program that serves as an interface between the user and the ke
 
 Finally, it is important to note that Unix has many different flavours, e.g. Linux distributions, Mac OS, BSD, Solaris. 
 
+#### Virtual Machine:
+Before talking about VirtualBox, which is a virtual machine, one should refer to the concept of virtualization. Virtualization enables the placement of an abstraction layer between the user of resources and the resources, this vague definition can be used as a basis for understanding the usage and the importance of Virtual Machines. As mentioned previously, a virtualization can be seen as a way to create virtual resources using real resources, in other words, virtualization enables the substitution of process(es). 
+
+To put it simply, one could say that a virtual machine is an emulation of a computer system, and it is often designed to “execute computer programs in a platform-independent environment”. 
+A Virtual Machine or VM was originally defined by Popek and Goldberg as "an efficient, isolated duplicate of a real computer machine."
+
+One could argue that the main advantage of using a VM is that it enables the usage of different and multiple operating systems environments in one computer. An important aspect of a VM concerning robotics is that it offers application provisioning and disaster recovery options.
+
 #### VirtualBox and Ubuntu:
 ROS functions best in a Ubuntu Linux environment, since most computers are using other operating systems, such as Windows and Mac OS, we should find a tool that enables the use of multiple operating systems. That is where Oracle’s VirtualBox comes in handy, it allows you to run an operating system inside another operating system. As VirtualBox is a “cross-platform virtualization application”, simple yet powerful tool. Thus, in this manual we will install VIrtualBox and Ubuntu, before moving on to ROS. 
 
