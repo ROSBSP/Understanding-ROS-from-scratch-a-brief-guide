@@ -351,6 +351,173 @@ And once again, you should see something similar to:
 
 When you are done, press Ctrl-C to terminate both the listener and the talker.
 
+### Chapter V: simple publisher and subscriber (Python), code explained and small modifications
+
+In this chapter we will take a closer look at the code for the publisher and the subscriber node. Additionally, you will be able to see that it is possible to modify some aspects of the code, by observing the modifications I have made, most importantly how this modifications affect the outcome.
+
+#### Code explained: Publisher node
+Reminder, you can view and edit the code of the publisher node by executing the command: 
+
+`rosed beginner_tutorials talker.py`
+
+Please note the code below (the symbol # is used for comments), and follow the line per line explanation:
+
+The following are comments, they show that your script is executed as a python script : 
+
+`#!/usr/bin/env python`		
+`#license removed for brevity`
+
+It is necessary to import rospy when writing a ROS node:
+
+`import rospy`
+
+Additionally, we must import String from std_msgs.msg, in order to be able to reuse the String message type for the publisher ROS node:
+
+`from std_msgs.msg import String`
+
+Below we have a function, which determines the talker’s interface with the rest of ROS:
+
+`def talker():`
+
+Please note that inside the brackets are arguments. 
+
+Below we define that the node is publishing to the chatter topic using a message type String (which is the class std_msgs.msg), the queue_size argument is responsible for limiting the amount of queued messages (10) if the subscriber is not receiving messages fast enough:
+
+`pub = rospy.Publisher('chatter', String, queue_size=10)`	    
+
+The following code line names the the ROS node as talker, then the node can start communicating with ROS master. The parameter anonymous = True ensures that the publishing has an unique name, by adding random numbers to the end of the name, i. e. talker.
+
+`rospy.init_node('talker', anonymous=True)`
+
+Below we define the rate at which the loop is executed (i.e. looping rate), the argument is 10, which means that we go through the loop 10 times per second (10hz):
+
+`rate = rospy.Rate(10) # 10hz`
+
+To start, not is a boolean operation (not x = if x is false, then True, else False), and while serves to test an object for truth value (True, False); a while statement is used for repeated execution as long as an expression is true. Below we have a while not statement that checks if is_shutdown to check if the program should exit (e.g. if we press ctrl+c):
+
+`while not rospy.is_shutdown():`
+    
+If the program should not exit, then the following is executed. Below we define a variable called hello_str, then the job that will be executed is a call to pub.publish(hello_str) that publishes a string to the chatter topic. 
+
+`hello_str = "hello world %s" % rospy.get_time()`
+
+The loop calls the following, which has three main functions, namely messages get printed on the screen, they get written in the node’s log file and to rosout. 
+
+`rospy.loginfo(hello_str)`
+
+`pub.publish(hello_str)`
+        
+Additionally, the loop calls the following, which sleeps long enough to maintain the desired rate through the loop:
+
+`rate.sleep()`
+
+The following concerns an exception, so that we do not continue executing the code after the sleep( ): 
+
+`if __name__ == '__main__':`
+
+`try:`
+
+`talker()`
+
+`except rospy.ROSInterruptException:`
+
+`pass`
+
+#### Code explained: Subscriber node
+
+Reminder, you can view and edit the code of the subscriber node by executing the command: 
+
+`rosed beginner_tutorials listener.py`
+
+I will now highlight the differences between the previous code (regarding the chatter) and the subscriber code, i.e. the similar aspects will not be explained again.
+
+Concerning the code for listener.py, we can observe that a new callback-based mechanism is added to subscribe to messages.
+
+Firstly, the call to rospy.init_node( ) has an additional argument, being the anonymous=True, which ensures that an unique name is generated for the node (this allows multiple listener nodes to run simultaneously):
+
+`rospy.init_node('listener', anonymous=True)`
+
+Then, the listener node must subscribe to the chatter topic, and when a new message is received callback is invoked with the message as the first argument:
+  
+`rospy.Subscriber("chatter", String, callback)`
+
+Lastly, the following keeps the node from exiting before it has been shutdown:
+
+`rospy.spin()`
+
+#### Small modifications to the publisher code:
+
+After having a better understanding of the code, it is possible to make modifications. Bellow you will find some modifications that can be implemented.
+
+`#!/usr/bin/env python`
+
+`#license removed for brevity`
+
+`import rospy`
+
+`from std_msgs.msg import String`
+
+`def talker():`
+
+**`pub = rospy.Publisher('chatter', String, queue_size=6)`**
+    
+`rospy.init_node('talker', anonymous=True)`
+    
+**`rate = rospy.Rate (5) # 5hz`**
+    
+`while not rospy.is_shutdown():`
+    
+**`doanything_str = "you can do anything %s" % rospy.get_time()`**
+        
+**`rospy.loginfo(doanything_str)`**
+        
+**`pub.publish(doanything_str)`**
+        
+`rate.sleep()`
+
+`if __name__ == '__main__':`
+
+`try:`
+   
+`talker()`
+        
+`except rospy.ROSInterruptException:`
+    
+`pass`
+
+In the code above, the minor changes implemented concern the name of the string, the message that will be published, the number of messages that can be queued and the rate which we go through the while not loop.  
+
+#### Tiny modification to the subscriber code:
+
+`#!/usr/bin/env python`
+
+`import rospy`
+
+`from std_msgs.msg import String`
+
+`def callback(data):`
+
+**`rospy.loginfo(rospy.get_caller_id() + "I am sure that  %s", data.data)`**
+    
+`def listener():`
+
+`rospy.init_node('listener', anonymous=True)`
+   
+`rospy.Subscriber("chatter", String, callback)`
+    
+`rospy.spin()`
+
+`if __name__ == '__main__':`
+
+`listener()`
+
+
+
+
+
+
+
+
 
 ### Bibliography
 
